@@ -1,4 +1,4 @@
-# wukong-private-plugins
+# wk-plugin-store-private
 
 悟空非空也的私人 Claude 插件市场
 
@@ -7,7 +7,7 @@
 在 Claude Code 中添加此市场：
 
 ```bash
-/plugin marketplace add wukongnotnull/wukong-private-plugins
+/plugin marketplace add wukongnotnull/wk-plugin-store-private
 ```
 
 ## 安装市场中的插件
@@ -15,19 +15,19 @@
 安装市场中某个插件：
 
 ```bash
-/plugin install <plugin-name>@wukong-private-plugins
+/plugin install <plugin-name>@wk-plugin-store-private
 ```
 
 例如：
 ```bash
 # 安装 demo-plugin
-/plugin install demo-plugin@wukong-private-plugins
+/plugin install demo-plugin@wk-plugin-store-private
 
 # 安装 tangseng
-/plugin install tangseng@wukong-private-plugins
+/plugin install tangseng@wk-plugin-store-private
 
 # 安装 quality-review-plugin
-/plugin install quality-review-plugin@wukong-private-plugins
+/plugin install quality-review-plugin@wk-plugin-store-private
 ```
 
 ## 插件列表
