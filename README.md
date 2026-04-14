@@ -15,19 +15,19 @@
 安装市场中某个插件：
 
 ```bash
-/plugin install <plugin-name>@wukong-notnull
+/plugin install <plugin-name>@wukong-private-plugins
 ```
 
 例如：
 ```bash
 # 安装 demo-plugin
-/plugin install demo-plugin@wukong-plugins
+/plugin install demo-plugin@wukong-private-plugins
 
 # 安装 tangseng
-/plugin install tangseng@wukong-plugins
+/plugin install tangseng@wukong-private-plugins
 
 # 安装 quality-review-plugin
-/plugin install quality-review-plugin@wukong-plugins
+/plugin install quality-review-plugin@wukong-private-plugins
 ```
 
 ## 插件列表
