@@ -17,16 +17,10 @@
 ### quality-review-plugin
 代码质量审查插件，提供 /quality-review 命令。
 
-## 安装
-
-```bash
-claude plugin add wukongnotnull/wukong-private-plugins
-```
-
 ## 本地开发
 
 ```bash
-# 验证插件结构
+# 验证整个市场
 claude plugin validate .
 
 # 验证单个插件
