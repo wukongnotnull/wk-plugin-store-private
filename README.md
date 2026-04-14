@@ -2,6 +2,34 @@
 
 悟空非空也的私人 Claude 插件市场
 
+## 添加市场到 Claude Code
+
+在 Claude Code 中添加此市场：
+
+```bash
+/plugin add wukongnotnull/wukong-private-plugins
+```
+
+## 安装市场中的插件
+
+安装市场中某个插件：
+
+```bash
+/plugin add wukongnotnull/wukong-private-plugins/<plugin-name>
+```
+
+例如：
+```bash
+# 安装 demo-plugin
+/plugin add wukongnotnull/wukong-private-plugins/demo-plugin
+
+# 安装 tangseng
+/plugin add wukongnotnull/wukong-private-plugins/tangseng
+
+# 安装 quality-review-plugin
+/plugin add wukongnotnull/wukong-private-plugins/quality-review-plugin
+```
+
 ## 插件列表
 
 ### demo-plugin
