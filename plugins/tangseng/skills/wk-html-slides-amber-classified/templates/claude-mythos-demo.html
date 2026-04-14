@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Mythos 绝密模型——AI安全时代的分水岭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0d0b08;
+  --accent: #ff8c32;
+  --accent-dark: #ff6600;
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.5);
+  --text-dim: rgba(255,255,255,0.35);
+}
+
+html {
+  overflow: hidden;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+/* Classified bar */
+.classified-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #ff6600, #ff6600 30px, #cc4400 30px, #cc4400 60px);
+  z-index: 100;
+  animation: barSlide 0.8s ease-out;
+}
+
+.classified-bar-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #ff6600, #ff6600 30px, #cc4400 30px, #cc4400 60px);
+  z-index: 100;
+}
+
+@keyframes barSlide {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); }
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 4px;
+  right: 0;
+  z-index: 90;
+  padding: 1rem 2rem;
+}
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+nav a:hover { color: var(--accent); }
+
+/* Slides */
+.slide {
+  height: 100dvh;
+  display: none;
+  grid-template-rows: 1fr;
+  place-items: center;
+  padding: 2rem clamp(2rem, 8vw, 6rem);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.slide.active {
+  display: grid;
+}
+
+.slide > * {
+  max-width: 100%;
+}
+
+/* Background effects */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(220,100,0,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 80%, rgba(180,80,0,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.slide:nth-child(even)::before {
+  background:
+    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(220,100,0,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 15% 20%, rgba(180,80,0,0.06) 0%, transparent 50%);
+}
+
+/* Left border accent */
+.left-border {
+  position: absolute;
+  left: 0;
+  top: 5%;
+  bottom: 5%;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+}
+
+/* Stamp watermark */
+.stamp {
+  position: absolute;
+  top: 50%;
+  right: clamp(2rem, 8vw, 6rem);
+  transform: translateY(-50%) rotate(-12deg);
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2rem, 6vw, 5rem);
+  color: rgba(255, 80, 0, 0.06);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 4px solid rgba(255, 80, 0, 0.06);
+  padding: 0.5rem 1.5rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+  padding-left: clamp(2rem, 4vw, 3rem);
+}
+
+.doc-id {
+  font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+  color: rgba(255,140,50,0.6);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+}
+
+.eyebrow {
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: clamp(0.5rem, 1vh, 0.75rem);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+}
+
+h1 .accent { color: var(--accent); text-shadow: 0 0 60px rgba(255,140,50,0.3); }
+
+h2 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+}
+
+h2 .accent { color: var(--accent); }
+
+.divider {
+  width: clamp(40px, 5vw, 80px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: clamp(1rem, 2vh, 1.5rem) 0;
+}
+
+p {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 65ch;
+}
+
+.highlight {
+  color: var(--text);
+  font-weight: 500;
+}
+
+ul {
+  list-style: none;
+  margin-top: clamp(1rem, 2vh, 1.5rem);
+}
+
+ul li {
+  position: relative;
+  padding-left: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: clamp(0.75rem, 1.5vh, 1rem);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 0;
+  transform: rotate(45deg);
+}
+
+strong { color: var(--accent); font-weight: 600; }
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+.stat { min-width: 100px; }
+
+.stat .num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat .unit {
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Data cards */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.5rem, 3vh, 2rem);
+}
+
+.data-card {
+  background: rgba(255,140,50,0.05);
+  border: 1px solid rgba(255,140,50,0.15);
+  border-radius: 4px;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(255, 140, 50, 0.1);
+}
+
+.data-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
+
+.data-card .icon {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+.data-card .value {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--accent);
+  line-height: 1;
+}
+
+.data-card .label {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Card component */
+.card {
+  background: rgba(255,140,50,0.03);
+  border: 1px solid rgba(255,140,50,0.12);
+  border-radius: 8px;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  position: relative;
+  margin-top: clamp(1rem, 2vh, 1.5rem);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark), transparent);
+  border-radius: 8px 8px 0 0;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card-icon .icon {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  filter: drop-shadow(0 0 10px rgba(255, 140, 50, 0.4));
+}
+
+.card-icon .title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.card ul {
+  margin-top: 0.75rem;
+}
+
+.card ul li {
+  margin-bottom: 0.6rem;
+}
+
+/* Feature cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.5rem, 3vh, 2rem);
+}
+
+.feature-card {
+  background: rgba(255,140,50,0.04);
+  border: 1px solid rgba(255,140,50,0.1);
+  border-radius: 8px;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at bottom right, rgba(255,140,50,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.feature-card .number {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: rgba(255,140,50,0.15);
+  position: absolute;
+  top: -0.5rem;
+  right: 0.5rem;
+  line-height: 1;
+}
+
+.feature-card .title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card .desc {
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Comparison table */
+.comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: clamp(1rem, 2vh, 1.5rem);
+}
+
+.comparison-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+  background: rgba(255,140,50,0.04);
+  border: 1px solid rgba(255,140,50,0.12);
+  border-radius: 6px;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.comparison-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(255,140,50,0.25);
+}
+
+.comparison-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 6px 0 0 6px;
+}
+
+.comparison-card .icon {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  margin-right: 0.5rem;
+}
+
+.comparison-card .name {
+  flex: 1;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  color: var(--text-muted);
+}
+
+.comparison-card .score {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: var(--accent);
+}
+
+.comparison-card .score-prev {
+  font-size: clamp(0.75rem, 1vw, 0.85rem);
+  color: var(--text-dim);
+  margin-left: 0.5rem;
+}
+
+/* Quote */
+.quote {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.7;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--accent);
+  margin: clamp(1.5rem, 3vh, 2rem) 0;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: clamp(1rem, 2vh, 1.5rem);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+.timeline-card {
+  position: relative;
+  margin-bottom: clamp(0.75rem, 1.5vh, 1rem);
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.25rem);
+  background: rgba(255,140,50,0.04);
+  border: 1px solid rgba(255,140,50,0.1);
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.timeline-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(255,140,50,0.2);
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  box-shadow: 0 0 15px rgba(255, 140, 50, 0.5);
+}
+
+.timeline-card .year {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeline-card .year::before {
+  content: '▸';
+  font-size: 0.8em;
+}
+
+.timeline-card .event {
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  padding-left: 1.25rem;
+}
+
+/* Partners */
+.partner-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin-top: clamp(1rem, 2vh, 1.5rem);
+}
+
+.partner-tag {
+  background: rgba(255,140,50,0.08);
+  border: 1px solid rgba(255,140,50,0.2);
+  padding: 0.5rem 1rem;
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  color: var(--text-muted);
+}
+
+/* Section number */
+.section-num {
+  position: absolute;
+  top: clamp(2rem, 5vh, 3rem);
+  right: clamp(2rem, 5vw, 4rem);
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: rgba(255,140,50,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Footer text */
+.footer-text {
+  text-align: center;
+  padding-top: clamp(1.5rem, 3vh, 2rem);
+  margin-top: clamp(1.5rem, 3vh, 2rem);
+  font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  border-top: 1px solid rgba(255,140,50,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stamp { display: none; }
+  .left-border { display: none; }
+  .section-num { font-size: 4rem; right: 1rem; }
+  .stats-row { gap: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+</style>
+</head>
+<body>
+<div class="classified-bar"></div>
+<div class="classified-bar-bottom"></div>
+
+<!-- Slide 1: Cover -->
+<section class="slide" id="cover">
+  <!-- <div class="stamp">CLASSIFIED</div> -->
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="doc-id reveal">DOC-2026-0408 · ANTHROPIC INTERNAL</div>
+    <div class="eyebrow reveal reveal-delay-1">绝密模型正式官宣</div>
+    <h1 class="reveal reveal-delay-2">Claude<br><span class="accent">Mythos</span></h1>
+    <div class="divider reveal reveal-delay-3"></div>
+    <p class="reveal reveal-delay-3">AI 历史上首个因能力过强、风险过高<br>被研发方主动限制开放的大模型</p>
+    <div class="stats-row reveal reveal-delay-4">
+      <div class="stat">
+        <div class="num">83.1%</div>
+        <div class="unit">漏洞利用</div>
+      </div>
+      <div class="stat">
+        <div class="num">40+</div>
+        <div class="unit">巨头联盟</div>
+      </div>
+      <div class="stat">
+        <div class="num">$1亿</div>
+        <div class="unit">安全投入</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 2: Agenda -->
+<section class="slide" id="agenda">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">目录</div>
+    <h2 class="reveal reveal-delay-1">今天的内容</h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <ul class="reveal reveal-delay-2">
+      <li>模型概况：绝密泄露→正式官宣</li>
+      <li>核心能力：硅基安全专家，自主猎杀漏洞</li>
+      <li>性能对比：全面碾压前代，Token消耗大幅降低</li>
+      <li>玻璃翅膀计划：40家巨头联合防御</li>
+      <li>行业影响：AI安全范式彻底改变</li>
+      <li>总结与未来展望</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Slide 3: Overview -->
+<section class="slide" id="overview">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">模型概况</div>
+    <h2 class="reveal reveal-delay-1">从泄露到<span class="accent">官宣</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="card reveal reveal-delay-2">
+      <div class="card-icon">
+        <span class="icon">📢</span>
+        <span class="title">2026年4月8日</span>
+      </div>
+      <ul>
+        <li>Anthropic正式公开<strong>Claude Mythos预览版</strong></li>
+        <li>模型提前泄露，被定义为<strong>绝密级AI模型</strong></li>
+        <li>初衷：提升逻辑推理能力；意外能力：<strong>超强自主漏洞挖掘</strong></li>
+        <li>关键决策：<strong>不公开发布通用版本</strong>，仅作为安全API受控使用</li>
+      </ul>
+    </div>
+    <div class="quote reveal reveal-delay-3">
+      AI历史上首个因能力过强、风险过高，被研发方主动限制开放的大模型。
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: Core Capabilities -->
+<section class="slide" id="capabilities">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">核心能力</div>
+    <h2 class="reveal reveal-delay-1">硅基<span class="accent">安全专家</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2" style="margin-bottom: 1.5rem;">突破点：不靠特征匹配，靠<strong>逻辑推演</strong></p>
+    <div class="feature-grid reveal reveal-delay-2">
+      <div class="feature-card">
+        <span class="number">01</span>
+        <div class="title">🖥️ OpenBSD系统</div>
+        <div class="desc">发现隐藏<strong>27年</strong>的致命远程崩溃漏洞</div>
+      </div>
+      <div class="feature-card">
+        <span class="number">02</span>
+        <div class="title">🎬 FFmpeg编解码库</div>
+        <div class="desc">挖出存在<strong>16年</strong>的逻辑漏洞，500万次暴力扫描未检出</div>
+      </div>
+      <div class="feature-card">
+        <span class="number">03</span>
+        <div class="title">🐧 Linux内核</div>
+        <div class="desc">串联多个低危漏洞，形成<strong>普通用户→最高权限</strong>完整攻击链</div>
+      </div>
+      <div class="feature-card">
+        <span class="number">04</span>
+        <div class="title">⚡ 低成本攻击</div>
+        <div class="desc">4小时、20个工具、<strong>50美元</strong>成本，实现服务器权限获取</div>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-3" style="margin-top: 1.5rem;">从"辅助安全分析"升级为<strong>自主攻防的硅基安全专家</strong>。</p>
+  </div>
+</section>
+
+<!-- Slide 5: Performance -->
+<section class="slide" id="performance">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">性能对比</div>
+    <h2 class="reveal reveal-delay-1">全方位<span class="accent">碾压</span>前代Opus 4.6</h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="comparison reveal reveal-delay-2">
+      <div class="comparison-card">
+        <span class="icon">🎯</span>
+        <span class="name">CyberGym（漏洞利用）</span>
+        <span class="score">83.1%</span>
+        <span class="score-prev">vs 66.6%</span>
+      </div>
+      <div class="comparison-card">
+        <span class="icon">🔧</span>
+        <span class="name">SWE-bench Pro（软件修复）</span>
+        <span class="score">77.8%</span>
+        <span class="score-prev">vs 53.8%</span>
+      </div>
+      <div class="comparison-card">
+        <span class="icon">✓</span>
+        <span class="name">SWE-bench Verified（高质量代码）</span>
+        <span class="score">93.9%</span>
+        <span class="score-prev">近乎满分</span>
+      </div>
+      <div class="comparison-card">
+        <span class="icon">⌨️</span>
+        <span class="name">Terminal-Bench 2.0（命令行执行）</span>
+        <span class="score">82.0%</span>
+        <span class="score-prev">vs 65.4%</span>
+      </div>
+      <div class="comparison-card">
+        <span class="icon">🖼️</span>
+        <span class="name">多模态SWE-bench</span>
+        <span class="score">59.0%</span>
+        <span class="score-prev">vs 27.1%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: Cost Advantage -->
+<section class="slide" id="cost">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">成本优势</div>
+    <h2 class="reveal reveal-delay-1">性能暴涨<br><span class="accent">Token大降</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="stats-row reveal reveal-delay-2">
+      <div class="stat">
+        <div class="num">4.9x</div>
+        <div class="unit">Token消耗降低</div>
+      </div>
+      <div class="stat">
+        <div class="num">94.6%</div>
+        <div class="unit">GPQA Diamond</div>
+      </div>
+      <div class="stat">
+        <div class="num">79.6%</div>
+        <div class="unit">OSWorld-Verified</div>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-3" style="margin-top: 1.5rem;">推理能力全面提升，<strong>Token消耗量降低4.9倍</strong>。兼顾超强能力与低成本，适合大规模安全检测。</p>
+    <p class="reveal reveal-delay-4" style="margin-top: 1rem;">复杂推理考试：无工具<strong>56.8%</strong>，用工具<strong>64.7%</strong></p>
+  </div>
+</section>
+
+<!-- Slide 7: Glasswing -->
+<section class="slide" id="glasswing">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">玻璃翅膀计划</div>
+    <h2 class="reveal reveal-delay-1">Project <span class="accent">Glasswing</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">全球AI安全防御联盟，用<strong>最强的矛加固最强的盾</strong></p>
+    <div class="timeline reveal reveal-delay-3">
+      <div class="timeline-card">
+        <div class="year">🏢 40家巨头</div>
+        <div class="event">亚马逊、苹果、微软、谷歌、英伟达等联合</div>
+      </div>
+      <div class="timeline-card">
+        <div class="year">💰 $1亿</div>
+        <div class="event">Mythos使用额度，无偿/低价供给联盟成员</div>
+      </div>
+      <div class="timeline-card">
+        <div class="year">🎁 $400万</div>
+        <div class="event">向Linux、Apache基金会捐赠</div>
+      </div>
+      <div class="timeline-card">
+        <div class="year">⏱️ 90天</div>
+        <div class="event">秘密修复期漏洞披露新范式</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 8: Partners -->
+<section class="slide" id="partners">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">联盟覆盖</div>
+    <h2 class="reveal reveal-delay-1">全产业链<span class="accent">安全防御</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="data-grid reveal reveal-delay-2">
+      <div class="data-card">
+        <div class="icon">⚙️</div>
+        <div class="value">硬件层</div>
+        <div class="label">英伟达、博通、思科<br>扫描底层硬件漏洞</div>
+      </div>
+      <div class="data-card">
+        <div class="icon">🖥️</div>
+        <div class="value">系统层</div>
+        <div class="label">微软、谷歌<br>突破人力瓶颈</div>
+      </div>
+      <div class="data-card">
+        <div class="icon">🏦</div>
+        <div class="value">金融层</div>
+        <div class="label">摩根大通<br>严苛合规下的AI防御</div>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-3" style="margin-top: 1.5rem;">全球<strong>系统补丁总动员</strong>，覆盖数字世界全场景</p>
+  </div>
+</section>
+
+<!-- Slide 9: Distribution -->
+<section class="slide" id="distribution">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">分发模式</div>
+    <h2 class="reveal reveal-delay-1">严格可控<br><span class="accent">拒绝滥用</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="card reveal reveal-delay-2">
+      <ul>
+        <li>🔒 <strong>不做通用聊天机器人</strong></li>
+        <li>🔑 仅以<strong>专用安全API</strong>形式提供</li>
+        <li>☁️ 通过AWS Bedrock、谷歌云Vertex AI等平台分发</li>
+        <li>📊 全链路<strong>可追溯、可监管</strong></li>
+        <li>🛡️ 先加固全球系统，再谨慎开放能力</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 10: Impact -->
+<section class="slide" id="impact">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">行业影响</div>
+    <h2 class="reveal reveal-delay-1">AI安全<span class="accent">时代来临</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="data-grid reveal reveal-delay-2">
+      <div class="data-card">
+        <div class="value">数月→分钟</div>
+        <div class="label">漏洞发现到利用窗口期大幅缩短</div>
+      </div>
+      <div class="data-card">
+        <div class="value">彻底终结</div>
+        <div class="label">人力堆彻安全的时代</div>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-3" style="margin-top: 1.5rem;">未来趋势：<strong>以AI治AI</strong>，主动防御取代被动修补</p>
+    <div class="quote reveal reveal-delay-4">
+      AI能力爆发不是放慢脚步的理由，而是必须跑得更快的信号。
+    </div>
+  </div>
+</section>
+
+<!-- Slide 11: Risk -->
+<section class="slide" id="risk">
+    <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">风险与展望</div>
+    <h2 class="reveal reveal-delay-1">第一个<span class="accent">火山口</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="card reveal reveal-delay-2">
+      <div class="card-icon">
+        <span class="icon">⚠️</span>
+        <span class="title">Anthropic官方态度</span>
+      </div>
+      <ul>
+        <li>CEO：漏洞挖掘只是AI风险的<strong>第一个清晰信号</strong></li>
+        <li>未来风险：<strong>生物安全、化学防御、关键基础设施</strong>等"非预期能力"</li>
+      </ul>
+    </div>
+    <div class="card reveal reveal-delay-3">
+      <div class="card-icon">
+        <span class="icon">🗺️</span>
+        <span class="title">应对蓝图</span>
+      </div>
+      <p>透明、协作、先发制人，应对AI能力"越界"</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 12: Summary -->
+<section class="slide" id="summary">
+  <!-- <div class="stamp">CLASSIFIED</div> -->
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">总结</div>
+    <h2 class="reveal reveal-delay-1">AI安全<span class="accent">新纪元</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <ul class="reveal reveal-delay-2">
+      <li><strong>Claude Mythos</strong>：AI安全里程碑，强到需限制开放</li>
+      <li><strong>核心价值</strong>：自主挖掘陈年漏洞，全面领先前代模型</li>
+      <li><strong>防御方案</strong>：玻璃翅膀计划，40家巨头共建安全防线</li>
+      <li><strong>时代结论</strong>：AI自主扫描代码的未来已来，唯有协同防御才能保障数字安全</li>
+    </ul>
+    <div class="quote reveal reveal-delay-3" style="margin-top: 2rem;">
+      AI安全的竞争，已经进入以快制快、以AI对抗AI的新纪元。
+    </div>
+    <div class="footer-text reveal reveal-delay-4">2026年4月 | AI安全与大模型趋势分享</div>
+  </div>
+</section>
+
+<script>
+// Slide navigation
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+  if (index < 0) index = 0;
+  if (index >= totalSlides) index = totalSlides - 1;
+
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active');
+    if (i === index) {
+      slide.classList.add('active');
+      // Trigger reveal animations
+      slide.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        void el.offsetWidth; // Force reflow
+        setTimeout(() => el.classList.add('visible'), 50);
+      });
+    }
+  });
+  currentSlide = index;
+}
+
+// Spacebar navigation
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') {
+    e.preventDefault();
+    showSlide(currentSlide + 1);
+  }
+  if (e.code === 'ArrowRight' || e.code === 'ArrowDown') {
+    e.preventDefault();
+    showSlide(currentSlide + 1);
+  }
+  if (e.code === 'ArrowLeft' || e.code === 'ArrowUp') {
+    e.preventDefault();
+    showSlide(currentSlide - 1);
+  }
+});
+
+// Initialize first slide
+showSlide(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>给DeepSeek的最后一封催更信</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0d0b08;
+  --accent: #ff8c32;
+  --accent-dark: #ff6600;
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.5);
+  --text-dim: rgba(255,255,255,0.35);
+}
+html { overflow: hidden; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; line-height: 1.6; overflow: hidden; }
+.classified-bar { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #ff6600, #ff6600 30px, #cc4400 30px, #cc4400 60px); z-index: 100; animation: barSlide 0.8s ease-out; }
+.classified-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #ff6600, #ff6600 30px, #cc4400 30px, #cc4400 60px); z-index: 100; }
+@keyframes barSlide { from { transform: scaleX(0); transform-origin: left; } to { transform: scaleX(1); } }
+.slide { height: 100dvh; display: none; grid-template-rows: 1fr; place-items: center; padding: 2rem clamp(2rem, 8vw, 6rem); position: relative; overflow: hidden; box-sizing: border-box; }
+.slide.active { display: grid; }
+.slide > * { max-width: 100%; }
+.slide::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 15% 50%, rgba(220,100,0,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 90% 80%, rgba(180,80,0,0.08) 0%, transparent 50%); pointer-events: none; }
+.left-border { position: absolute; left: 0; top: 5%; bottom: 5%; width: 2px; background: linear-gradient(to bottom, transparent, var(--accent), transparent); }
+.content { position: relative; z-index: 2; max-width: 900px; width: 100%; text-align: left; padding-left: clamp(2rem, 4vw, 3rem); }
+.doc-id { font-size: clamp(0.55rem, 0.9vw, 0.7rem); color: rgba(255,140,50,0.6); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: clamp(1rem, 2vh, 1.5rem); }
+.eyebrow { font-size: clamp(0.7rem, 1.2vw, 0.9rem); color: var(--accent); font-weight: 500; letter-spacing: 0.08em; margin-bottom: clamp(0.5rem, 1vh, 0.75rem); text-transform: uppercase; }
+h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 2vh, 1.5rem); }
+h1 .accent { color: var(--accent); text-shadow: 0 0 60px rgba(255,140,50,0.3); }
+h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: clamp(1rem, 2vh, 1.5rem); }
+h2 .accent { color: var(--accent); }
+.divider { width: clamp(40px, 5vw, 80px); height: 2px; background: linear-gradient(90deg, var(--accent), transparent); margin: clamp(1rem, 2vh, 1.5rem) 0; }
+p { font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: var(--text-muted); line-height: 1.8; max-width: 65ch; }
+ul { list-style: none; margin-top: clamp(1rem, 2vh, 1.5rem); }
+ul li { position: relative; padding-left: clamp(1.5rem, 3vw, 2rem); margin-bottom: clamp(0.75rem, 1.5vh, 1rem); font-size: clamp(0.9rem, 1.4vw, 1rem); color: var(--text-muted); line-height: 1.7; }
+ul li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; background: var(--accent); transform: rotate(45deg); }
+ul li ul { margin-top: 0.5rem; }
+ul li ul li { font-size: clamp(0.8rem, 1.2vw, 0.9rem); }
+strong { color: var(--accent); font-weight: 600; }
+.stats-row { display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 4vw, 3rem); margin-top: clamp(1.5rem, 3vh, 2.5rem); }
+.stat { min-width: 100px; }
+.stat .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); color: var(--accent); line-height: 1; }
+.stat .unit { font-size: clamp(0.6rem, 1vw, 0.75rem); color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; }
+.data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(1.5rem, 3vh, 2rem); }
+.data-card { background: rgba(255,140,50,0.05); border: 1px solid rgba(255,140,50,0.15); border-radius: 4px; padding: clamp(1rem, 2vw, 1.5rem); position: relative; transition: transform 0.3s ease; }
+.data-card:hover { transform: translateY(-4px); }
+.data-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); border-radius: 4px 0 0 4px; }
+.data-card .icon { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 0.75rem; }
+.data-card .value { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--accent); line-height: 1; }
+.data-card .label { font-size: clamp(0.7rem, 1vw, 0.85rem); color: var(--text-muted); margin-top: 0.5rem; }
+.card { background: rgba(255,140,50,0.03); border: 1px solid rgba(255,140,50,0.12); border-radius: 8px; padding: clamp(1.25rem, 2.5vw, 2rem); position: relative; margin-top: clamp(1rem, 2vh, 1.5rem); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-dark), transparent); border-radius: 8px 8px 0 0; }
+.card-icon { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.card-icon .icon { font-size: clamp(1.5rem, 2.5vw, 2rem); filter: drop-shadow(0 0 10px rgba(255, 140, 50, 0.4)); }
+.card-icon .title { font-family: 'Archivo Black', sans-serif; font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
+.card ul { margin-top: 0.75rem; }
+.card ul li { margin-bottom: 0.6rem; }
+.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(1.5rem, 3vh, 2rem); }
+.feature-card { background: rgba(255,140,50,0.04); border: 1px solid rgba(255,140,50,0.1); border-radius: 8px; padding: clamp(1rem, 2vw, 1.5rem); position: relative; overflow: hidden; transition: transform 0.3s ease; }
+.feature-card:hover { transform: translateY(-2px); }
+.feature-card::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; background: radial-gradient(ellipse at bottom right, rgba(255,140,50,0.08) 0%, transparent 70%); pointer-events: none; }
+.feature-card .number { font-family: 'Archivo Black', sans-serif; font-size: clamp(2rem, 4vw, 3rem); color: rgba(255,140,50,0.15); position: absolute; top: -0.5rem; right: 0.5rem; line-height: 1; }
+.feature-card .title { font-family: 'Archivo Black', sans-serif; font-size: clamp(0.85rem, 1.3vw, 1rem); color: var(--accent); margin-bottom: 0.5rem; }
+.feature-card .desc { font-size: clamp(0.75rem, 1.1vw, 0.9rem); color: var(--text-muted); line-height: 1.6; }
+.timeline { position: relative; padding-left: 2rem; margin-top: clamp(1rem, 2vh, 1.5rem); }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+.timeline-card { position: relative; margin-bottom: clamp(0.75rem, 1.5vh, 1rem); padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.25rem); background: rgba(255,140,50,0.04); border: 1px solid rgba(255,140,50,0.1); border-radius: 6px; }
+.timeline-card::before { content: ''; position: absolute; left: -2rem; top: 50%; transform: translateY(-50%) rotate(45deg); width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 15px rgba(255, 140, 50, 0.5); }
+.timeline-card .year { font-family: 'Archivo Black', sans-serif; font-size: clamp(0.9rem, 1.3vw, 1.1rem); color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
+.timeline-card .event { font-size: clamp(0.75rem, 1.1vw, 0.9rem); color: var(--text-muted); margin-top: 0.25rem; padding-left: 1.25rem; }
+.quote { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--text); font-style: italic; padding-left: 1.5rem; border-left: 3px solid var(--accent); margin: clamp(1.5rem, 3vh, 2rem) 0; }
+.section-num { position: absolute; top: clamp(2rem, 5vh, 3rem); right: clamp(2rem, 5vw, 4rem); font-family: 'Archivo Black', sans-serif; font-size: clamp(4rem, 10vw, 8rem); color: rgba(255,140,50,0.04); line-height: 1; pointer-events: none; }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.footer-text { text-align: center; padding-top: clamp(1.5rem, 3vh, 2rem); margin-top: clamp(1.5rem, 3vh, 2rem); font-size: clamp(0.65rem, 0.9vw, 0.75rem); color: var(--text-dim); letter-spacing: 0.1em; border-top: 1px solid rgba(255,140,50,0.1); }
+@media (max-width: 768px) { .left-border { display: none; } .section-num { font-size: 4rem; right: 1rem; } .stats-row { gap: 1.5rem; } .feature-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+<div class="classified-bar"></div>
+<div class="classified-bar-bottom"></div>
+
+<section class="slide active">
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="doc-id reveal">DOC-2026-DEEPSEEK</div>
+    <div class="eyebrow reveal reveal-delay-1">从模型之战到全生态之战</div>
+    <h1 class="reveal reveal-delay-2">给DeepSeek的<br><span class="accent">最后一封催更信</span></h1>
+    <div class="divider reveal reveal-delay-3"></div>
+    <p class="reveal reveal-delay-3">DeepSeek V4能否定义中国AI的下一步？</p>
+    <div class="stats-row reveal reveal-delay-4">
+      <div class="stat"><div class="num">2026</div><div class="unit">智能经济关键年</div></div>
+      <div class="stat"><div class="num">V4</div><div class="unit">即将发布</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">目录</div>
+    <h2 class="reveal reveal-delay-1">今天的内容</h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="card reveal reveal-delay-2">
+      <ul>
+        <li>中国AI叙事的三重变革：团、链、环</li>
+        <li>四次技术浪潮下DeepSeek的缺席</li>
+        <li>全生态竞争时代的核心挑战</li>
+        <li>Token经济：智能经济的价值闭环</li>
+        <li>开源生态的第三次转折待DeepSeek推动</li>
+        <li>对DeepSeek V4的全新期待：不止于模型</li>
+        <li>国产模型与算力的双剑合璧</li>
+        <li>糖水智能与原力智能的分层突破</li>
+        <li>总结：DeepSeek的回归与中国AI的未来</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">01</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第一页</div>
+    <h2 class="reveal reveal-delay-1">中国AI叙事<span class="accent">已变</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">2025-2026年，中国AI叙事从DeepSeek独撑，转向"团、链、环"三重交织的新格局。</p>
+    <div class="feature-grid reveal reveal-delay-3">
+      <div class="feature-card"><span class="number">01</span><div class="title">🤝 中国团</div><div class="desc">(3+1)+6+N的产业军团：字节、阿里、腾讯、百度四大厂 + 六小虎 + 垂类模型企业</div></div>
+      <div class="feature-card"><span class="number">02</span><div class="title">⛓️ 中国链</div><div class="desc">全产业链贯通：芯片算力、集群/云、数据语料、算法/模型、智能体、AI应用生态</div></div>
+      <div class="feature-card"><span class="number">03</span><div class="title">🔄 中国环</div><div class="desc">三大闭环：产业闭环、应用闭环、资本闭环</div></div>
+      <div class="feature-card"><span class="number">04</span><div class="title">📈 关键趋势</div><div class="desc">2026年中国AI进入向外能力输出阶段，六小虎海外Token消耗量过半</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">02</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第二页</div>
+    <h2 class="reveal reveal-delay-1">四波浪潮<span class="accent">已经过去</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">DeepSeek"断更"一年，人工智能经历四次浪潮，其存在感持续弱化。</p>
+    <div class="card reveal reveal-delay-3">
+      <ul>
+        <li><strong>编程浪潮</strong>：Anthropic（海外）、Kimi（国内）主导，DeepSeek被边缘化</li>
+        <li><strong>多模态浪潮</strong>：Gemini 3 Pro、Seedance 2.0成焦点，DeepSeek V3.2才灰度测试百万Token</li>
+        <li><strong>智能体浪潮</strong>：Manus、Kimi Agent Swarm成主角，DeepSeek Agent生态建设不足</li>
+        <li><strong>OpenClaw浪潮</strong>：应用AI OS成为新方向，但DeepSeek未入局</li>
+      </ul>
+    </div>
+    <div class="quote reveal reveal-delay-4">四波浪潮推高竞争门槛与生态成本，市场不等人，DeepSeek是否在蓄力V4？</div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">03</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第三页</div>
+    <h2 class="reveal reveal-delay-1">全生态竞争<span class="accent">到来</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">AI竞争进入全生态阶段，全栈能力成为核心，DeepSeek有优势但短板明显。</p>
+    <div class="feature-grid reveal reveal-delay-3">
+      <div class="feature-card"><span class="number">🏆</span><div class="title">Google标杆</div><div class="desc">四大优势：模型原理进化度、数据深度、全链生态广度、智能连接度</div></div>
+      <div class="feature-card"><span class="number">⚔️</span><div class="title">美国竞争格局</div><div class="desc">Anthropic先领先，Google跟进，OpenAI被夹攻，四强变三强</div></div>
+      <div class="feature-card"><span class="number">🎂</span><div class="title">黄仁勋理论</div><div class="desc">能源→芯片→AI基础设施→模型→应用，竞争成千亿级重资产游戏</div></div>
+      <div class="feature-card"><span class="number">⚡</span><div class="title">DeepSeek优劣势</div><div class="desc">优势：底层原理突破仍有领先<br>短板：缺乏IT巨头生态、产品功能单薄</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">04</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第四页</div>
+    <h2 class="reveal reveal-delay-1">Token经济<span class="accent">崛起</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">Token成为智能经济的核心结算单位，经济分层与商业化路径清晰。</p>
+    <div class="data-grid reveal reveal-delay-3">
+      <div class="data-card"><div class="icon">📊</div><div class="value">140万亿</div><div class="label">2026年日均Token调用量</div></div>
+      <div class="data-card"><div class="icon">📈</div><div class="value">1000亿→</div><div class="label">2024年日均Token调用量</div></div>
+      <div class="data-card"><div class="icon">💰</div><div class="value">千倍+</div><div class="label">两年增长幅度</div></div>
+    </div>
+    <div class="card reveal reveal-delay-4">
+      <ul>
+        <li><strong>高能力Token</strong>赚钱，低能力Token亏钱/被淘汰</li>
+        <li><strong>率先跑通场景</strong>：金融风控、医疗诊断、智能客服、代码生成</li>
+        <li><strong>未来趋势</strong>：常规Token薄利走量，高价值Token保持溢价</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">05</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第五页</div>
+    <h2 class="reveal reveal-delay-1">开源生态等待<span class="accent">第三次转折</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="timeline reveal reveal-delay-2">
+      <div class="timeline-card"><div class="year">2025年初</div><div class="event">DeepSeek引爆开源，巨头加入开源阵营</div></div>
+      <div class="timeline-card"><div class="year">2026年初</div><div class="event">OpenClaw助推，开源模型市场份额升至33%（中国占比突出）</div></div>
+    </div>
+    <div class="card reveal reveal-delay-3">
+      <ul>
+        <li>闭源API边际成本不可控</li>
+        <li>自托管开源模型在高并发/长上下文/Agent场景单位成本更低</li>
+        <li>期待DeepSeek推动算力成本、用户市场、开源生态、市场信心的多重冲击</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">06</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第六页</div>
+    <h2 class="reveal reveal-delay-1">对V4的期待<span class="accent">不止于模型</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="feature-grid reveal reveal-delay-2">
+      <div class="feature-card"><span class="number">📋</span><div class="title">基础门槛（过去标准）</div><div class="desc">V4/R2代际跨越、100万Token上下文、原生多模态、万亿参数基础模型</div></div>
+      <div class="feature-card"><span class="number">🚀</span><div class="title">核心突破方向（新标准）</div><div class="desc">多Agent能力、工具使用、电脑操作、超强代码能力</div></div>
+    </div>
+    <div class="card reveal reveal-delay-3">
+      <div class="card-icon"><span class="icon">🔧</span><span class="title">DeepSeek技术铺垫（V4前奏）</span></div>
+      <ul>
+        <li><strong>OCR系列</strong>：颠覆文本/视觉Token效率假设</li>
+        <li><strong>mHC</strong>：解决万亿参数模型训练的信号爆炸问题</li>
+        <li><strong>Engram</strong>：支持跨会话持久化记忆</li>
+        <li><strong>DualPath</strong>：智能体推理效率翻倍</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">07</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第七页</div>
+    <h2 class="reveal reveal-delay-1">国产模型与国产算力<br><span class="accent">双剑合璧</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <div class="card reveal reveal-delay-2">
+      <ul>
+        <li>V4晚点的关键原因：<strong>优先适配国产算力</strong></li>
+        <li>未向英伟达/AMD提供预览，提前开放给华为等国产芯片商</li>
+      </ul>
+    </div>
+    <div class="feature-grid reveal reveal-delay-3">
+      <div class="feature-card"><span class="number">⚡</span><div class="title">短期</div><div class="desc">艰难但必要的起点</div></div>
+      <div class="feature-card"><span class="number">🎯</span><div class="title">长期</div><div class="desc">验证国产算力效能，摆脱海外依赖，打破英伟达"Token之王"标签</div></div>
+    </div>
+    <div class="quote reveal reveal-delay-4">历史参照：DeepSeek R1发布致英伟达暴跌17%，期待V4再现产业冲击</div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">08</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第八页</div>
+    <h2 class="reveal reveal-delay-1">糖水智能与原力智能<br><span class="accent">分层突破</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">实现"小模型有大智慧，大模型有高溢价"</p>
+    <div class="feature-grid reveal reveal-delay-3">
+      <div class="feature-card"><span class="number">🧊</span><div class="title">糖水智能</div><div class="desc">小模型、常规智能，服务简单场景，端侧部署，薄利走量</div></div>
+      <div class="feature-card"><span class="number">⚡</span><div class="title">原力智能</div><div class="desc">大模型、超级智能，服务企业/专业场景，高水准高溢价</div></div>
+    </div>
+    <div class="card reveal reveal-delay-4">
+      <div class="card-icon"><span class="icon">🏆</span><span class="title">参照标杆：Google Gemma 4</span></div>
+      <ul>
+        <li>2B-31B多版本覆盖全场景，智能蒸馏与内化实现小模型大智慧</li>
+        <li><strong>对DeepSeek的期待</strong>：30B-70B-120B盖过Gemma-4，1B-8B端侧模型实现智能平权</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="section-num">09</span>
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="eyebrow reveal">第九页</div>
+    <h2 class="reveal reveal-delay-1">写在<span class="accent">最后</span></h2>
+    <div class="divider reveal reveal-delay-1"></div>
+    <p class="reveal reveal-delay-2">DeepSeek V4肩负中国AI进阶的关键使命，期待"沉寂"后的爆发。</p>
+    <div class="feature-grid reveal reveal-delay-3">
+      <div class="feature-card"><span class="number">🏛️</span><div class="title">中国团</div><div class="desc">需要其回归形成集群优势</div></div>
+      <div class="feature-card"><span class="number">🌱</span><div class="title">开源生态</div><div class="desc">需要其推动第三次转折</div></div>
+      <div class="feature-card"><span class="number">💰</span><div class="title">Token经济</div><div class="desc">需要其原力智能支撑</div></div>
+      <div class="feature-card"><span class="number">⚙️</span><div class="title">国产算力</div><div class="desc">需要其验证适配能力</div></div>
+    </div>
+    <div class="quote reveal reveal-delay-4">终极追问：DeepSeek的下一步，能否定义中国人工智能的下一步？</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="left-border"></div>
+    <div class="doc-id reveal">DOC-2026-DEEPSEEK</div>
+    <div class="eyebrow reveal reveal-delay-1">2026，智能经济的关键一跃</div>
+    <h1 class="reveal reveal-delay-2">期待<br><span class="accent">DeepSeek V4</span></h1>
+    <div class="divider reveal reveal-delay-3"></div>
+    <p class="reveal reveal-delay-3">以技术突破，重塑中国AI的全球竞争力</p>
+    <div class="footer-text reveal reveal-delay-4">等DeepSeek接棒</div>
+  </div>
+</section>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+function showSlide(index) {
+  if (index < 0) index = 0;
+  if (index >= totalSlides) index = totalSlides - 1;
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active');
+    if (i === index) {
+      slide.classList.add('active');
+      slide.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        void el.offsetWidth;
+        setTimeout(() => el.classList.add('visible'), 50);
+      });
+    }
+  });
+  currentSlide = index;
+}
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); showSlide(currentSlide + 1); }
+  if (e.code === 'ArrowRight' || e.code === 'ArrowDown') { e.preventDefault(); showSlide(currentSlide + 1); }
+  if (e.code === 'ArrowLeft' || e.code === 'ArrowUp') { e.preventDefault(); showSlide(currentSlide - 1); }
+});
+showSlide(0);
+</script>
+</body>
+</html>

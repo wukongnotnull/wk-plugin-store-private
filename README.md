@@ -41,6 +41,7 @@
 - wk-gzh-title - 公众号标题生成
 - wk-gzh-cover - 封面图提示词生成
 - wk-video-script - 视频脚本写作
+- wk-html-slides-amber-classified - 琥珀色风格幻灯片生成
 
 ### quality-review-plugin
 代码质量审查插件，提供 /quality-review 命令。
