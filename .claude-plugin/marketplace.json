@@ -16,14 +16,7 @@
     {
       "name": "tangseng",
       "source": "./plugins/tangseng",
-      "description": "悟空非空也自媒体创作插件",
-      "skills": [
-        "wk-gzh-writer",
-        "wk-gzh-title",
-        "wk-gzh-cover",
-        "wk-video-script",
-        "wk-html-slides-amber-classified"
-      ]
+      "description": "悟空非空也自媒体创作插件"
     },
     {
       "name": "quality-review-plugin",
