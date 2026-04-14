@@ -1,0 +1,10 @@
+{
+  "name": "demo-plugin",
+  "description": "一个用于学习的简单插件",
+  "version": "1.0.0",
+  "author": {
+    "name": "wukongnotnull"
+  },
+  "commands": ["./commands/hello.md"],
+  "hooks": "./hooks/hooks.json"
+}

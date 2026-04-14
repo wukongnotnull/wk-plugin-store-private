@@ -1,0 +1,16 @@
+{
+  "description": "Format code after Write or Edit operations",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/format-code.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

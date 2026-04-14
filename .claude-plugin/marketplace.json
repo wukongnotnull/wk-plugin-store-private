@@ -1,0 +1,27 @@
+{
+  "name": "wukong-private-plugins",
+  "owner": {
+    "name": "wukongnotnull",
+    "email": "1390128154@qq.com"
+  },
+  "metadata": {
+    "description": "悟空非空也的私人插件市场"
+  },
+  "plugins": [
+    {
+      "name": "demo-plugin",
+      "source": "./plugins/demo-plugin",
+      "description": "一个用于学习的简单插件"
+    },
+    {
+      "name": "tangseng",
+      "source": "./plugins/tangseng",
+      "description": "悟空非空也自媒体创作插件"
+    },
+    {
+      "name": "quality-review-plugin",
+      "source": "./plugins/quality-review-plugin",
+      "description": "Adds a /quality-review skill for quick code reviews"
+    }
+  ]
+}
