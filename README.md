@@ -7,7 +7,7 @@
 在 Claude Code 中添加此市场：
 
 ```bash
-/plugin add wukongnotnull/wukong-private-plugins
+/plugin marketplace add wukongnotnull/wukong-private-plugins
 ```
 
 ## 安装市场中的插件
@@ -15,19 +15,19 @@
 安装市场中某个插件：
 
 ```bash
-/plugin add wukongnotnull/wukong-private-plugins/<plugin-name>
+/plugin install <plugin-name>@wukong-notnull
 ```
 
 例如：
 ```bash
 # 安装 demo-plugin
-/plugin add wukongnotnull/wukong-private-plugins/demo-plugin
+/plugin install demo-plugin@wukong-plugins
 
 # 安装 tangseng
-/plugin add wukongnotnull/wukong-private-plugins/tangseng
+/plugin install tangseng@wukong-plugins
 
 # 安装 quality-review-plugin
-/plugin add wukongnotnull/wukong-private-plugins/quality-review-plugin
+/plugin install quality-review-plugin@wukong-plugins
 ```
 
 ## 插件列表
