@@ -6,9 +6,9 @@
     "name": "wukongnotnull"
   },
   "skills": [
-    "wk-gzh-writer",
-    "wk-gzh-title",
-    "wk-gzh-summary",
-    "wk-gzh-cover"
+    "./skills/wk-gzh-writer",
+    "./skills/wk-gzh-title",
+    "./skills/wk-gzh-summary",
+    "./skills/wk-gzh-cover"
   ]
 }
