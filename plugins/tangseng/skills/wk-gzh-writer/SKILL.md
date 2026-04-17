@@ -369,62 +369,6 @@ AI：按四层自检体系检查 → 输出修改建议
 
 完成五层自检后，输出一份简洁的质检报告，模板见 `references/self_check_template.md`。
 
-## 文章质检报告
-
-**L1 硬性规则** ✅/❌
-- 禁用词：X处命中（已修复/待修复）
-- 禁用标点：X处命中（已修复/待修复）
-- 结构套话：X处命中（已修复/待修复）
-- 空泛工具名：X处（已修复/待修复）
-
-**L2 风格一致性** ✅/❌
-- 开头：✅/❌
-- 节奏：✅/❌（具体问题：...）
-- 口语化：✅/❌（使用了X个口语词组）
-- 标点禁令二次确认：✅/❌
-
-**L3 内容质量** ✅/❌
-- 观点支撑：✅/❌
-- 知识输出：✅/❌
-- 文化升维：✅/❌
-- 对立面与同理心：✅/❌
-- 类型专项：✅/❌
-- 逐一展示：✅/❌/不适用
-
-**L4 活人感** ✅/❌
-- 温度感：✅/❌（具体段落：...）
-- 独特性：✅/❌
-- 姿态：✅/❌
-- 心流：✅/❌（断点位置：...）
-- 节奏断点：✅/❌（是否故意制造了不完美）
-
-**L5 内容趣味性** ✅/❌
-- 开头钩子：✅/❌
-- 案例趣味性：✅/❌
-- 吐槽与情绪：✅/❌
-- 节奏变化：✅/❌
-- 升番检查：✅/❌/不适用
-
-**AI味终检**：大声朗读全文，标记读起来像"念报告"的所有段落。
-
-**总评**：5层全部通过 / X层需要返工
-**修复优先级**：[列出最需要修复的1-3个具体问题]
-```
-
 
 ## 参考资料
 
-- 禁用词/禁用标点完整清单：`references/ai_word_ban.md`
-- 口语化词组完整分类表：`references/colloquial_phrases.md`
-- 五层自检完整检查条目：`references/five_layer_checklist.md`
-- 自检报告模板：`references/self_check_template.md`
-- 风格示例和修改对比：`references/style_examples.md`
-- 内容方法论（选题、分类、爆款案例）：`references/content_methodology.md`
-
-
-- 禁用词/禁用标点完整清单：`references/ai_word_ban.md`
-- 口语化词组完整分类表：`references/colloquial_phrases.md`
-- 五层自检完整检查条目：`references/five_layer_checklist.md`
-- 自检报告模板：`references/self_check_template.md`
-- 风格示例和修改对比：`references/style_examples.md`
-- 内容方法论（选题、分类、爆款案例）：`references/content_methodology.md`
