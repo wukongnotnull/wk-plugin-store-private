@@ -4,5 +4,11 @@
   "version": "1.0.0",
   "author": {
     "name": "wukongnotnull"
-  }
+  },
+  "skills": [
+    "wk-gzh-writer",
+    "wk-gzh-title",
+    "wk-gzh-summary",
+    "wk-gzh-cover"
+  ]
 }
