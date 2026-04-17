@@ -9,6 +9,8 @@
     "./skills/wk-gzh-writer",
     "./skills/wk-gzh-title",
     "./skills/wk-gzh-summary",
-    "./skills/wk-gzh-cover"
+    "./skills/wk-gzh-cover",
+    "./skills/wk-html-slides-amber-classified",
+    "./skills/wk-video-script"
   ]
 }
